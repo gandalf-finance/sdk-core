@@ -1,7 +1,7 @@
 import invariant from 'tiny-invariant'
 import { Currency } from './currency'
 import { NativeCurrency } from './nativeCurrency'
-import { Token } from './token'
+import { ERCToken } from './token'
 import { WETH9 } from './weth9'
 
 /**
@@ -12,7 +12,7 @@ export class Ether extends NativeCurrency {
     super(chainId, 18, 'ETH', 'Ether')
   }
 
-  public get wrapped(): Token {
+  public get wrapped(): ERCToken {
     const weth9 = WETH9[this.chainId]
     invariant(!!weth9, 'WRAPPED')
     return weth9

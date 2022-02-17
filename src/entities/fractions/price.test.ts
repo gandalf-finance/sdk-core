@@ -1,4 +1,4 @@
-import { Token } from '../token'
+import { ERCToken } from '../token'
 import { CurrencyAmount } from './currencyAmount'
 import { Price } from './price'
 
@@ -6,9 +6,9 @@ describe('Price', () => {
   const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
   const ADDRESS_ONE = '0x0000000000000000000000000000000000000001'
 
-  const t0 = new Token(1, ADDRESS_ZERO, 18)
-  const t0_6 = new Token(1, ADDRESS_ZERO, 6)
-  const t1 = new Token(1, ADDRESS_ONE, 18)
+  const t0 = new ERCToken(1, ADDRESS_ZERO, 18)
+  const t0_6 = new ERCToken(1, ADDRESS_ZERO, 6)
+  const t1 = new ERCToken(1, ADDRESS_ONE, 18)
 
   describe('#constructor', () => {
     it('array format works', () => {

@@ -1,7 +1,7 @@
 import invariant from 'tiny-invariant'
 import JSBI from 'jsbi'
 import { Currency } from '../currency'
-import { Token } from '../token'
+import { ERCToken } from '../token'
 import { Fraction } from './fraction'
 import _Big from 'big.js'
 
@@ -88,8 +88,8 @@ export class CurrencyAmount<T extends Currency> extends Fraction {
     return new Big(this.quotient.toString()).div(this.decimalScale.toString()).toFormat(format)
   }
 
-  public get wrapped(): CurrencyAmount<Token> {
-    if (this.currency.isToken) return this as CurrencyAmount<Token>
+  public get wrapped(): CurrencyAmount<ERCToken> {
+    if (this.currency.isToken) return this as CurrencyAmount<ERCToken>
     return CurrencyAmount.fromFractionalAmount(this.currency.wrapped, this.numerator, this.denominator)
   }
 }

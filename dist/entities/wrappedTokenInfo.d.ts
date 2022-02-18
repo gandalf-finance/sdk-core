@@ -1,6 +1,6 @@
 import { Currency, ERCToken } from '.';
 import { BaseCurrency } from './baseCurrency';
-import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists';
+import { Tags, TokenInfo, TokenList } from '@awaken/token-lists';
 declare type TagDetails = Tags[keyof Tags];
 interface TagInfo extends TagDetails {
     id: string;

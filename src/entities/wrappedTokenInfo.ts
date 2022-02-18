@@ -29,7 +29,7 @@ export class WrappedTokenInfo implements BaseCurrency {
     throw new Error('Method not implemented.');
   }
 
-  private _checksummedAddress: string | null = null;
+  public _checksummedAddress: string | null = null;
 
   public get address(): string {
     if (this._checksummedAddress) return this._checksummedAddress;

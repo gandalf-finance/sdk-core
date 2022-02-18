@@ -5,3 +5,4 @@ export * from './nativeCurrency';
 export * from './token';
 export * from './weth9';
 export * from './elfChainToken';
+export * from './wrappedTokenInfo';

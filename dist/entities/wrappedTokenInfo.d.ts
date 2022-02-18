@@ -16,7 +16,7 @@ export declare class WrappedTokenInfo implements BaseCurrency {
     readonly tokenInfo: TokenInfo;
     constructor(tokenInfo: TokenInfo, list: TokenList);
     get wrapped(): ERCToken;
-    private _checksummedAddress;
+    _checksummedAddress: string | null;
     get address(): string;
     get chainId(): number | string;
     get decimals(): number;

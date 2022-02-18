@@ -40,6 +40,24 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
@@ -753,6 +771,93 @@ function isAddress(value) {
   }
 }
 
+/**
+ * Token instances created from token info on a token list.
+ */
+
+var WrappedTokenInfo = /*#__PURE__*/function () {
+  function WrappedTokenInfo(tokenInfo, list) {
+    this.isNative = false;
+    this._checksummedAddress = null;
+    this._tags = null;
+    this.tokenInfo = tokenInfo;
+    this.list = list;
+    this.isELFChain = typeof tokenInfo.chainId === 'string';
+    this.isToken = !this.isELFChain;
+  }
+
+  var _proto = WrappedTokenInfo.prototype;
+
+  _proto.equals = function equals(other) {
+    return other.chainId === this.chainId && (typeof other.chainId === 'string' ? other.symbol.toLowerCase() === this.symbol.toLowerCase() : other.isToken && other.address.toLowerCase() === this.address.toLowerCase());
+  };
+
+  _proto.sortsBefore = function sortsBefore(other) {
+    if (this.equals(other)) throw new Error('Addresses should not be equal');
+    return typeof other.chainId === 'string' ? this.symbol.toLowerCase() < other.symbol.toLowerCase() : this.address.toLowerCase() < other.address.toLowerCase();
+  };
+
+  _createClass(WrappedTokenInfo, [{
+    key: "wrapped",
+    get: function get() {
+      throw new Error('Method not implemented.');
+    }
+  }, {
+    key: "address",
+    get: function get() {
+      if (this._checksummedAddress) return this._checksummedAddress;
+
+      if (typeof this.tokenInfo.chainId === 'number') {
+        var checksummedAddress = isAddress(this.tokenInfo.address);
+        if (!checksummedAddress) throw new Error("Invalid token address: " + this.tokenInfo.address);
+        return this._checksummedAddress = checksummedAddress;
+      }
+
+      return this._checksummedAddress = this.tokenInfo.symbol;
+    }
+  }, {
+    key: "chainId",
+    get: function get() {
+      return this.tokenInfo.chainId;
+    }
+  }, {
+    key: "decimals",
+    get: function get() {
+      return this.tokenInfo.decimals;
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return this.tokenInfo.name;
+    }
+  }, {
+    key: "symbol",
+    get: function get() {
+      return this.tokenInfo.symbol;
+    }
+  }, {
+    key: "logoURI",
+    get: function get() {
+      return this.tokenInfo.logoURI;
+    }
+  }, {
+    key: "tags",
+    get: function get() {
+      if (this._tags !== null) return this._tags;
+      if (!this.tokenInfo.tags) return this._tags = [];
+      var listTags = this.list.tags;
+      if (!listTags) return this._tags = [];
+      return this._tags = this.tokenInfo.tags.map(function (tagId) {
+        return _extends({}, listTags[tagId], {
+          id: tagId
+        });
+      });
+    }
+  }]);
+
+  return WrappedTokenInfo;
+}();
+
 exports.CurrencyAmount = CurrencyAmount;
 exports.ELFChainToken = ELFChainToken;
 exports.ERCToken = ERCToken;
@@ -763,6 +868,7 @@ exports.NativeCurrency = NativeCurrency;
 exports.Percent = Percent;
 exports.Price = Price;
 exports.WETH9 = WETH9;
+exports.WrappedTokenInfo = WrappedTokenInfo;
 exports.computePriceImpact = computePriceImpact;
 exports.isAddress = isAddress;
 exports.sortedInsert = sortedInsert;

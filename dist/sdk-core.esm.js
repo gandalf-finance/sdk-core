@@ -743,5 +743,13 @@ function sqrt(value) {
   return z;
 }
 
-export { CurrencyAmount, ELFChainToken, ERCToken, Ether, Fraction, MaxUint256, NativeCurrency, Percent, Price, Rounding, TradeType, WETH9, computePriceImpact, sortedInsert, sqrt, validateAndParseAddress };
+function isAddress(value) {
+  try {
+    return getAddress(value);
+  } catch (_unused) {
+    return false;
+  }
+}
+
+export { CurrencyAmount, ELFChainToken, ERCToken, Ether, Fraction, MaxUint256, NativeCurrency, Percent, Price, Rounding, TradeType, WETH9, computePriceImpact, isAddress, sortedInsert, sqrt, validateAndParseAddress };
 //# sourceMappingURL=sdk-core.esm.js.map

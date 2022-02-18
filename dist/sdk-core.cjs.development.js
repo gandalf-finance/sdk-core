@@ -745,6 +745,14 @@ function sqrt(value) {
   return z;
 }
 
+function isAddress(value) {
+  try {
+    return address.getAddress(value);
+  } catch (_unused) {
+    return false;
+  }
+}
+
 exports.CurrencyAmount = CurrencyAmount;
 exports.ELFChainToken = ELFChainToken;
 exports.ERCToken = ERCToken;
@@ -756,6 +764,7 @@ exports.Percent = Percent;
 exports.Price = Price;
 exports.WETH9 = WETH9;
 exports.computePriceImpact = computePriceImpact;
+exports.isAddress = isAddress;
 exports.sortedInsert = sortedInsert;
 exports.sqrt = sqrt;
 exports.validateAndParseAddress = validateAndParseAddress;
